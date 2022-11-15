@@ -26,9 +26,12 @@ extra.apply {
     set("description", "A pure Java implementation of XSalsa20Poly1305 authenticated encryption.")
     set("group", "io.github.ydwk")
     set("version", "0.11.2")
-    set("dev_id", "yusuf")
-    set("dev_name", "Yusuf Ismail")
-    set("dev_email", "yusufgamer222@gmail.com")
+    set("first_dev_id", "coda")
+    set("first_dev_name", "Coda Hale")
+    set("first_dev_email", "coda.hale@gmail.com")
+    set("second_dev_id", "yusuf")
+    set("second_dev_name", "Yusuf Ismail")
+    set("second_dev_email", "yusufgamer222@gmail.com")
     set("dev_organization", "YDWK")
     set("dev_organization_url", "https://github.com/YDWK")
     set("gpl_name", "Apache-2.0 license")
@@ -46,6 +49,10 @@ repositories { mavenCentral() }
 dependencies {
     implementation("com.github.nitram509:jmacaroons:0.4.1")
     implementation("org.bouncycastle:bcprov-jdk15on:1.70")
+    implementation("org.openjdk.jmh:jmh-core:1.36")
+    implementation("org.abstractj.kalium:kalium:0.8.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.21")
+    testImplementation("org.quicktheories:quicktheories:0.26")
 }
 
 tasks.test {
@@ -79,16 +86,13 @@ spotless {
 
         licenseHeader(
             """/*
- * Copyright 2022 YDWK inc.
- *
+ * Copyright © 2017 Coda Hale (coda.hale@gmail.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- *
  * you may not use this file except in compliance with the License.
- *
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -121,7 +125,6 @@ tasks.javadoc {
     }
 }
 
-
 publishing {
     val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
     publications {
@@ -145,16 +148,20 @@ publishing {
                 inceptionYear.set("2022")
                 developers {
                     developer {
-                        id.set(extra["dev_id"] as String)
-                        name.set(extra["dev_name"] as String)
-                        email.set(extra["dev_email"] as String)
+                        id.set(extra["first_dev_id"] as String)
+                        name.set(extra["first_dev_name"] as String)
+                        email.set(extra["first_dev_email"] as String)
+                        id.set(extra["second_dev_id"] as String)
+                        name.set(extra["second_dev_name"] as String)
+                        email.set(extra["second_dev_email"] as String)
                         organization.set(extra["dev_organization"] as String)
                         organizationUrl.set(extra["dev_organization_url"] as String)
                     }
                 }
                 scm {
                     connection.set("https://github.com/YDWK/xsalsa20poly1305-fork.git")
-                    developerConnection.set("scm:git:ssh://git@github.com/YDWK/xsalsa20poly1305-fork.git")
+                    developerConnection.set(
+                        "scm:git:ssh://git@github.com/YDWK/xsalsa20poly1305-fork.git")
                     url.set("github.com/YDWK/xsalsa20poly1305-fork")
                 }
             }
@@ -216,8 +223,8 @@ signing {
         // println "sign: " + isReleaseVersion
         val isRequired =
             releaseVersion &&
-                    (tasks.withType<PublishToMavenRepository>().find { gradle.taskGraph.hasTask(it) } !=
-                            null)
+                (tasks.withType<PublishToMavenRepository>().find { gradle.taskGraph.hasTask(it) } !=
+                    null)
         setRequired(isRequired)
         sign(publishing.publications["xsalsa20poly1305-fork"])
     }
@@ -226,7 +233,7 @@ signing {
 tasks.getByName("dokkaHtml", DokkaTask::class) {
     dokkaSourceSets.configureEach {
         includes.from("Package.md")
-        jdkVersion.set(17)
+        jdkVersion.set(11)
         sourceLink {
             localDirectory.set(file("src/main/kotlin"))
             remoteUrl.set(
