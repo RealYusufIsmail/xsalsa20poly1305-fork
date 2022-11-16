@@ -179,11 +179,11 @@ publishing {
                 username =
                     when {
                         systemHasEnvVar("MAVEN_USERNAME") -> {
-                            logger.debug("Found username in system gradle.properties")
+                            logger.lifecycle("Found username in system environment variables")
                             System.getenv("MAVEN_USERNAME")
                         }
                         project.hasProperty("MAVEN_USERNAME") -> {
-                            logger.debug("MAVEN_USERNAME found in gradle.properties")
+                            logger.lifecycle("MAVEN_USERNAME found in gradle.properties")
                             project.property("MAVEN_USERNAME") as String
                         }
                         else -> {
@@ -196,11 +196,11 @@ publishing {
                 password =
                     when {
                         systemHasEnvVar("MAVEN_PASSWORD") -> {
-                            logger.debug("Found password in system gradle.properties")
+                            logger.lifecycle("Found password in system environment variables")
                             System.getenv("MAVEN_PASSWORD")
                         }
                         project.hasProperty("MAVEN_PASSWORD") -> {
-                            logger.debug("MAVEN_PASSWORD found in gradle.properties")
+                            logger.lifecycle("MAVEN_PASSWORD found in gradle.properties")
                             project.property("MAVEN_PASSWORD") as String
                         }
                         else -> {
