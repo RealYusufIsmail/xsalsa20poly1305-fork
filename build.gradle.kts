@@ -86,7 +86,7 @@ spotless {
 
         licenseHeader(
             """/*
- * Copyright © 2017 Coda Hale (coda.hale@gmail.com)
+ * Copyright © 2017 Coda Hale (coda.hale@gmail.com) && RealYusufIsmail && other YDWK contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

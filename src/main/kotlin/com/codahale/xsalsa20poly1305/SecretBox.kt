@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017 Coda Hale (coda.hale@gmail.com)
+ * Copyright © 2017 Coda Hale (coda.hale@gmail.com) && RealYusufIsmail && other YDWK contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,8 +116,7 @@ class SecretBox(secretKey: ByteArray) {
         // extract mac
         val presentedMAC = ByteArray(poly1305.macSize)
         System.arraycopy(
-            ciphertext, 0, presentedMAC, 0, ciphertext.size.coerceAtMost(poly1305.macSize)
-        )
+            ciphertext, 0, presentedMAC, 0, ciphertext.size.coerceAtMost(poly1305.macSize))
 
         // compare macs
         if (!MessageDigest.isEqual(calculatedMAC, presentedMAC)) {

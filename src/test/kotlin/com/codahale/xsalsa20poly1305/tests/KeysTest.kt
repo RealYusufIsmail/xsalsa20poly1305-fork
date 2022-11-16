@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017 Coda Hale (coda.hale@gmail.com)
+ * Copyright © 2017 Coda Hale (coda.hale@gmail.com) && RealYusufIsmail && other YDWK contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,14 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ */ 
 package com.codahale.xsalsa20poly1305.tests
 
 import com.codahale.xsalsa20poly1305.Keys
 import com.codahale.xsalsa20poly1305.SecretBox
+import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test
 import org.quicktheories.WithQuickTheories
-import kotlin.test.assertEquals
 
 internal class KeysTest : WithQuickTheories {
     @Test
@@ -43,16 +43,14 @@ internal class KeysTest : WithQuickTheories {
 
     @Test
     fun sharedSecrets() {
-        qt().forAll(
-            Generators.privateKeys(),
-            Generators.privateKeys()
-        )
-            .check { privateKeyA, privateKeyB ->
-                val publicKeyA = Keys.generatePublicKey(privateKeyA)
-                val publicKeyB = Keys.generatePublicKey(privateKeyB)
-                val secretAB = Keys.sharedSecret(publicKeyA, privateKeyB)
-                val secretBA = Keys.sharedSecret(publicKeyB, privateKeyA)
-                secretAB.contentEquals(secretBA)
-            }
+        qt().forAll(Generators.privateKeys(), Generators.privateKeys()).check {
+            privateKeyA,
+            privateKeyB ->
+            val publicKeyA = Keys.generatePublicKey(privateKeyA)
+            val publicKeyB = Keys.generatePublicKey(privateKeyB)
+            val secretAB = Keys.sharedSecret(publicKeyA, privateKeyB)
+            val secretBA = Keys.sharedSecret(publicKeyB, privateKeyA)
+            secretAB.contentEquals(secretBA)
+        }
     }
 }

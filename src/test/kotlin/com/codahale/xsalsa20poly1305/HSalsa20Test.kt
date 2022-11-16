@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017 Coda Hale (coda.hale@gmail.com)
+ * Copyright © 2017 Coda Hale (coda.hale@gmail.com) && RealYusufIsmail && other YDWK contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ */ 
 package com.codahale.xsalsa20poly1305
 
 import com.codahale.xsalsa20poly1305.tests.Generators
@@ -24,16 +24,13 @@ import org.quicktheories.WithQuickTheories
 internal class HSalsa20Test : WithQuickTheories {
     @Test
     fun interoperability() {
-        qt().forAll(
-            Generators.byteArrays(16, 16),
-            Generators.byteArrays(32, 32)
-        )
-            .check { `in`, key ->
-                val a = ByteArray(32)
-                val b = ByteArray(32)
-                hsalsa20.crypto_core(a, `in`, key, xsalsa20.sigma)
-                HSalsa20.hsalsa20(b, `in`, key)
-                a.contentEquals(b)
-            }
+        qt().forAll(Generators.byteArrays(16, 16), Generators.byteArrays(32, 32)).check { `in`, key
+            ->
+            val a = ByteArray(32)
+            val b = ByteArray(32)
+            hsalsa20.crypto_core(a, `in`, key, xsalsa20.sigma)
+            HSalsa20.hsalsa20(b, `in`, key)
+            a.contentEquals(b)
+        }
     }
 }

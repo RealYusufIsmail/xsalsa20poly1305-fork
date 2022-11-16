@@ -1,22 +1,20 @@
 # XSalsa20Poly1305
 
-[![CircleCI](https://circleci.com/gh/codahale/xsalsa20poly1305.svg?style=svg)](https://circleci.com/gh/codahale/xsalsa20poly1305)
-
-A pure Java library which provides symmetric and asymmetric encryption compatible with DJB's NaCl
+A pure Kotlin library which provides symmetric and asymmetric encryption compatible with DJB's NaCl
 library and its variants (e.g. libsodium). Also includes a class compatible with RbNaCl's SimpleBox
 construction, which automatically manages nonces for you in a misuse-resistant fashion.
 
 ## Add to your project
 
-```xml
-<dependency>
-  <groupId>com.codahale</groupId>
-  <artifactId>xsalsa20poly1305</artifactId>
-  <version>0.11.0</version>
-</dependency>
-```
+```kotlin
+repositories {
+    mavenCentral()
+}
 
-*Note: module name for Java 9+ is `com.codahale.xsalsa20poly1305`.*
+dependencies {
+    implementation("io.github.realyusufismail:xsalsa20poly1305-fork:${project.version}")
+}
+```
 
 It depends on Bouncy Castle for Salsa20, XSalsa20, Poly1305, and X25519 implementations.
 
